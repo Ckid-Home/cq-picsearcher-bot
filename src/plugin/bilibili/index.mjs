@@ -32,12 +32,13 @@ const getVideoParams = search => {
     const num = parseNumber(params.get('start_progress'));
     if (num) result.t = num / 1000;
   }
+  if (result.p === 1 && !result.t) delete result.p;
   if (size(result)) return result;
 };
 
 const getIdFromNormalLink = link => {
   if (typeof link !== 'string') return null;
-  const searchVideo = /bilibili\.com\/video\/(?:av(\d+)|(bv[\da-z]+))(?:\/?\?([\w.&=]+))?/i.exec(link) || {};
+  const searchVideo = /bilibili\.com\/video\/(?:av(\d+)|(bv[\da-z]+))(?:\/?\?([\w.&=%-]+))?/i.exec(link) || {};
   const searchDynamic =
     /(?:www|m)\.bilibili\.com\/opus\/(\d+)/i.exec(link) ||
     /t\.bilibili\.com\/(\d+)/i.exec(link) ||
